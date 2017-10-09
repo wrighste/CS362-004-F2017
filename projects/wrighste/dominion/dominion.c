@@ -674,7 +674,7 @@ int getCost(int cardNumber)
  peformAdventurerActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
  {
       while(drawntreasure<2){
-	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
+	if (state->deckCount[currentPlayer] <=1){//if the deck is empty we need to shuffle discard and add to deck
 	  shuffle(currentPlayer, state);
 	}
 	drawCard(currentPlayer, state);
@@ -704,7 +704,7 @@ while(z3-1>=0){
       
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
-      return 0;
+      return -1;
  }
  
 //  ////////////////////////////
@@ -791,7 +791,7 @@ peformSalvagerActions(int card, int choice1, int choice2, int choice3, struct ga
 peformSeaHagctions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
 {
       for (i3 = 0; i3 < state->numPlayers; i3++){
-	if (i3 != currentPlayer){
+	if (i3 == currentPlayer){
 	  state->discard[i3][state->discardCount[i3]] = state->deck[i3][state->deckCount[i3]--];			    state->deckCount[i3]--;
 	  state->discardCount[i3]++;
 	  state->deck[i3][state->deckCount[i3]--] = curse;//Top card now a curse
@@ -827,7 +827,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   if (selectCardAndPeformActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn, temphand,z,i) > -1)
   {
-    return -1;    
+    return -1;  //refactored method used, so skip out of the rest of cardEffect method  
   }
 
 /////////////	
