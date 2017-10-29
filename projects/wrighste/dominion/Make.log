@@ -1,0 +1,3 @@
+./unittest1 &> unittestresult.out
+gcov dominion.c >> unittestresult.out
+cat dominion.c.gcov >> unittestresult.out 	
