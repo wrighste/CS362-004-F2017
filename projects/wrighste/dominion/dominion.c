@@ -645,25 +645,28 @@ int getCost(int cardNumber)
 //////
  int selectCardAndPeformActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus,int cardDrawn,int *temphand,int z2,int i2)
  {
+  int currentPlayer = whoseTurn(state); 
   int result;
+//  printf("current player in select is %i ",currentPlayer);
 	result = -1;
-  if (card == adventurer)
+  	if (card == adventurer)
 	{
-		result = peformAdventurerActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn,*temphand,z2,i2);
+		result = peformAdventurerActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
 	} else if (card == smithy)
 	{
-		result = peformsmithyActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn,*temphand,z2,i2);
+		result = peformsmithyActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
 	} else if  (card == baron)
 	{
-		result = peformBaronActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn,*temphand,z2,i2);
+	//	printf("current playa just before performbaron call: %i ",currentPlayer);
+		result = peformBaronActions(card, choice1, choice2, choice3, state, handPos,currentPlayer ,cardDrawn,*temphand,z2,i2);
 	
 	} else if  (card == salvager)
 	{
-		result = peformSalvagerActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn,*temphand,z2,i2);
+		result = peformSalvagerActions(card, choice1, choice2, choice3, state, handPos,currentPlayer,cardDrawn,*temphand,z2,i2);
 
 	} else if  (card == sea_hag)
 	{
-		result = peformSeaHagctions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn,*temphand,z2,i2);
+		result = peformSeaHagctions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
 
 	}
 	return result;
@@ -673,7 +676,8 @@ int getCost(int cardNumber)
  ///////
  peformAdventurerActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
  {
-      while(drawntreasure<2){
+ while(drawntreasure<2){
+     
 	if (state->deckCount[currentPlayer] <=1){//if the deck is empty we need to shuffle discard and add to deck
 	  shuffle(currentPlayer, state);
 	}
@@ -710,11 +714,15 @@ while(z3-1>=0){
 //  ////////////////////////////
 
 ////////////////////////////////
- peformBaronActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
+ peformBaronActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int drawntreasure,int currentPlayer2,int cardDrawn,int temphand[],int z3,int i3)
  {
-      
-      state->numBuys++;//Increase buys by 1!
-      if (choice1 > 0){//Boolean true or going to discard an estate
+     
+     printf("choice 1 is %i",choice1);
+     printf("current player in pefformBaron is %i ",currentPlayer);
+ 
+     state->numBuys++;//Increase buys by 1!
+    // return -1;
+     if (choice1 > 0){//Boolean true or going to discard an estate
 	int p = 0;//Iterator for hand!
 	int card_not_discarded = 1;//Flag for discard set!
 	while(card_not_discarded){
@@ -729,13 +737,18 @@ while(z3-1>=0){
 	    state->handCount[currentPlayer]--;
 	    card_not_discarded = 0;//Exit the loop
 	  }
+//fake	return -1;
+//fake }
+//fkse}
+
+	
 	  else if (p > state->handCount[currentPlayer]){
 	    if(DEBUG) {
 	      printf("No estate cards in your hand, invalid choice\n");
 	      printf("Must gain an estate if there are any\n");
 	    }
 	    if (supplyCount(estate, state) > 0){
-	      gainCard(estate, state, 0, currentPlayer);
+	       gainCard(estate, state, 0, currentPlayer);
 	      state->supplyCount[estate]--;//Decrement estates
 	      if (supplyCount(estate, state) == 0){
 		isGameOver(state);
@@ -752,13 +765,14 @@ while(z3-1>=0){
 			    
       else{
 	if (supplyCount(estate, state) > 0){
-	  gainCard(estate, state, 0, currentPlayer);//Gain an estate
+	printf("estate= %i currentplayer=%i",estate,currentPlayer); 
+	gainCard(estate, state, 0, currentPlayer);//Gain an estate
 	  state->supplyCount[estate]--;//Decrement Estates
 	  if (supplyCount(estate, state) == 0){
 	    isGameOver(state);
 	  }
 	}
-      }
+     }
 	    
       
       return 0;
@@ -827,7 +841,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   if (selectCardAndPeformActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn, temphand,z,i) > -1)
   {
-    return -1;  //refactored method used, so skip out of the rest of cardEffect method  
+    return 0;  //refactored method used, so skip out of the rest of cardEffect method  
   }
 
 /////////////	
@@ -1303,7 +1317,7 @@ int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
   if ( supplyCount(supplyPos, state) < 1 )
     {
       return -1;
-    }
+   }
 	
   //added card for [whoseTurn] current player:
   // toFlag = 0 : add to discard
@@ -1318,16 +1332,16 @@ int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
   else if (toFlag == 2)
     {
       state->hand[ player ][ state->handCount[player] ] = supplyPos;
-      state->handCount[player]++;
-    }
+     state->handCount[player]++;
+   }
   else
     {
-      state->discard[player][ state->discardCount[player] ] = supplyPos;
-      state->discardCount[player]++;
+      //state->discard[player][ state->discardCount[player] ] = supplyPos;
+   //   state->discardCount[player]++;
     }
 	
   //decrease number in supply pile
-  state->supplyCount[supplyPos]--;
+ // state->supplyCount[supplyPos]--;
 	 
   return 0;
 }
