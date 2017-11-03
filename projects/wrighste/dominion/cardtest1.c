@@ -21,13 +21,13 @@
 #include <stdlib.h>
 
 #define TESTCARD "baron"
+#define NOISY_TEST 1
 
 int main() {
     int newCards = 0;
     int discarded = 1;
     int xtraCoins = 0;
     int shuffledCards = 0;
-
     int i, j, m;
     int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
     int remove1, remove2;
@@ -43,23 +43,41 @@ int main() {
 
 	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
-	// ----------- TEST 1: choice1 = 1 = +2 cards --------------
-	printf("TEST 1: choice1 = 1 = +2 cards\n");
+	// ----------- TEST 1: Increment buy\n"--------------
+	printf("TEST 1: Increment buy\n");
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 1;
-	choice2 = 1;
+	choice1 = 0 ;
+	
 	cardEffect(baron, choice1, choice2, choice3, &testG, handpos, &bonus);
- //   playCard(handPos, choice1, choice2, choice3, struct gameState *state) 
+    playCard(baron, choice1, choice2, choice3, &G);
+
 	newCards = 2;
 	xtraCoins = 0;
-//	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
-//	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
-//	printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
-	//assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
-	//assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
-	//assert(testG.coins == G.coins + xtraCoins);
+ 	if (testG.numBuys != (G.numBuys + 1))
+ 	{
+		printf("%s not correctly incrementing buy \n", TESTCARD);	
+ 	}
+ 	printf("buy count = %d, expected = %d\n", testG.numBuys, G.numBuys + 1);
+	// ----------- TEST 2: Test of discard estate"--------------
+	printf("TEST 2: Choice to discard an estate\n");
+
+	// copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1 ;
+	
+	cardEffect(baron, choice1, choice2, choice3, &testG, handpos, &bonus);
+    playCard(handpos, choice1, choice2, choice3, &G);
+
+	newCards = 2;
+	int currentPlayer =  whoseTurn(&testG);
+
+ 	if (testG.discardCount[currentPlayer] != (G.discardCount[currentPlayer] + 1))
+ 	{
+		printf("%s not correctly discarding estate card \n", TESTCARD);	
+ 	}
+ 	printf("discard card count = %d, expected = %d\n", testG.discardCount[currentPlayer], G.discardCount[currentPlayer] + 1);
 
  
 
