@@ -32,6 +32,8 @@ unittest4: unittest4.c dominion.o rngs.o
 cardtest1: cardtest1.c dominion.o rngs.o
 	gcc -o cardtest1 -g cardtest1.c dominion.o rngs.o ${CFLAGS} 
 
+randomadventurer: randomtestadventurer.c dominion.o rngs.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o ${CFLAGS}
 
 badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
@@ -48,6 +50,11 @@ interface.o: interface.h interface.c
 runtests: testDrawCard 
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
+	cat dominion.c.gcov >> unittestresult.out
+
+runrandomadventurer: randomtestadventurer
+	./randomtestadventurer &> unittestresult.out
+	gcov -f dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
 rununit1: unittest1

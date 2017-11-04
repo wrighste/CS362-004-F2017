@@ -647,7 +647,7 @@ int getCost(int cardNumber)
  {
   int currentPlayer = whoseTurn(state); 
   int result;
-//  printf("current player in select is %i ",currentPlayer);
+//   printf("current player in select is %i ",currentPlayer);
 	result = -1;
   	if (card == adventurer)
 	{
