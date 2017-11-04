@@ -58,46 +58,7 @@ int checkAdventurer(int p, struct gameState *post) {
          printf ("Random testing adventurer. Expect treasure cards: %i actual treasure cards %i.\n",expectedpretreasureinhand ,posttreasureinhand);
         }; 
   }
-//  while(drawntreasure<2){
-     
-// 	if (state->deckCount[currentPlayer] <=1){//if the deck is empty we need to shuffle discard and add to deck
-// 	  shuffle(currentPlayer, state);
-// 	}
-// 	drawCard(currentPlayer, state);
-// 	cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-// 	if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-// 	  drawntreasure++;
-// 	else{
-// 	  temphand[z3]=cardDrawn;
-// 	  state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-// 	  z3++;
-// 	}
-// }
-// while(z3-1>=0){
-// 	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z3-1]; // discard all cards in play that have been drawn
-// 	z3=z3-1;
-//   }
-//   return 0;
-
-
-//   int i3;
-  
-//   for (i3 = 0; i3 < post->numPlayers; i3++){
-//     if (i3 != currentPlayer){
-//       if (post->deck[i3][post->deckCount[i3]--] != curse)
-//         {
-//          printf ("This is other than current player, and top card is not a curse card.\n");
-//         }; 
-//     } else if (i3 == currentPlayer)
-//     {
-//       if (post->deck[i3][post->deckCount[i3]--] == curse)
-//         {
-//          printf ("This is current player, and top card is a curse card.\n");
-//         };
-//     }
-//   }
-// }
-
+ 
  
 
 int main () {
@@ -127,10 +88,17 @@ int main () {
   SelectStream(2);
   PutSeed(3);
 
-	memset(&G, 23, sizeof(struct gameState)); 
-	r = initializeGame(4, k, 21, &G);
-  checkAdventurer(p, &G);
-
+//int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
+//		   struct gameState *state) 
+  for (n = 0; n < 20000; n++) {
+  	p = floor(Random() * 2);
+  	G.deckCount[p] = floor(Random() * MAX_DECK);	
+  	G.discardCount[p] = floor(Random() * MAX_DECK);
+  	G.handCount[p] = floor(Random() * MAX_HAND);
+  	memset(&G, 23, sizeof(struct gameState)); 
+  	r = initializeGame(4, k, 21, &G);
+  	checkAdventurer(p, &G);
+  }
   return 0;
 }
 

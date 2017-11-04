@@ -1,5 +1,5 @@
 /*
- * cardtest1.c
+ * randomtestadventurer.c
  *
  
  */
@@ -10,81 +10,82 @@
  * cardtest4: cardtest4.c dominion.o rngs.o
  *      gcc -o cardtest1 -g  cardtest4.c dominion.o rngs.o $(CFLAGS)
  */
-
-
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
 #include "rngs.h"
-#include <stdlib.h>
 
-#define TESTCARD "baron"
+#define DEBUG 0
 #define NOISY_TEST 1
 
-int main() {
-    int newCards = 0;
-    int discarded = 1;
-    int xtraCoins = 0;
-    int shuffledCards = 0;
-    int i, j, m;
-    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
-    int remove1, remove2;
-    int seed = 1000;
-    int numPlayers = 2;
-    int thisPlayer = 0;
-	struct gameState G, testG;
-	int k[10] = {baron, embargo, village, minion, mine, cutpurse,
-			sea_hag, tribute, smithy, council_room};
 
-	// initialize a game state and player cards
-	initializeGame(numPlayers, k, seed, &G);
+int checkBaron(int p, struct gameState *pre) {
+  int r;
+  int currentPlayer = whoseTurn(pre);
+  int cardDrawn;
+  int pretreasureinhand = 0;
+  int posttreasureinhand = 0;
+      int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+  int cards[10] = {adventurer, council_room, feast, gardens, mine,
+         remodel, smithy, village, baron, great_hall};
+  struct gameState post;
+  memcpy (&post, &pre, sizeof(struct gameState));
 
-	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
-
-	// ----------- TEST 1: Increment buy\n"--------------
-	printf("TEST 1: Increment buy\n");
-
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 0 ;
-	
-	cardEffect(baron, choice1, choice2, choice3, &testG, handpos, &bonus);
-    playCard(baron, choice1, choice2, choice3, &G);
-
-	newCards = 2;
-	xtraCoins = 0;
- 	if (testG.numBuys != (G.numBuys + 1))
+  cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
+  playCard(handpos, choice1, choice2, choice3, &post);
+ 
+ // int preHandCount = pre->handCount[currentPlayer];
+  if (pre->discardCount[currentPlayer] != (post.discardCount[currentPlayer] + 1))
  	{
-		printf("%s not correctly incrementing buy \n", TESTCARD);	
+		printf("%s not correctly discarding estate card \n", "Baron ");	
  	}
- 	printf("buy count = %d, expected = %d\n", testG.numBuys, G.numBuys + 1);
-	// ----------- TEST 2: Test of discard estate"--------------
-	printf("TEST 2: Choice to discard an estate\n");
 
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 1 ;
-	
-	cardEffect(baron, choice1, choice2, choice3, &testG, handpos, &bonus);
-    playCard(handpos, choice1, choice2, choice3, &G);
-
-	newCards = 2;
-	int currentPlayer =  whoseTurn(&testG);
-
- 	if (testG.discardCount[currentPlayer] != (G.discardCount[currentPlayer] + 1))
- 	{
-		printf("%s not correctly discarding estate card \n", TESTCARD);	
- 	}
- 	printf("discard card count = %d, expected = %d\n", testG.discardCount[currentPlayer], G.discardCount[currentPlayer] + 1);
-
+  //	r = peformBaronActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
+  }
+ 
  
 
-	printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
+int main () {
+
+  int i, n, r, p, deckCount, discardCount, handCount;
+
+  int card;
+  int choice1;
+  int choice2;
+  int choice3;
+  int handPos;
+  int *bonus;
+  int drawntreasure;
+  int currentPlayer;
+  int cardDrawn;
+  int temphand[MAX_HAND];// moved above the if statement  int z3;
+  int i3;
+  
+  struct gameState G ;
+  //struct gameState *state, 
+  int k[10] = {adventurer, council_room, feast, gardens, mine,
+	       remodel, smithy, village, baron, great_hall};
 
 
-	return 0;
+  printf ("Testing Baron .\n");
+
+  SelectStream(2);
+  PutSeed(3);
+
+//int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
+//		   struct gameState *state) 
+  for (n = 0; n < 20000; n++) {
+  	p = floor(Random() * 2);
+  	G.deckCount[p] = floor(Random() * MAX_DECK);	
+  	G.discardCount[p] = floor(Random() * MAX_DECK);
+  	G.handCount[p] = floor(Random() * MAX_HAND);
+  	memset(&G, 23, sizeof(struct gameState)); 
+  	r = initializeGame(4, k, 21, &G);
+  	checkBaron(p, &G);
+  }
+  return 0;
 }
 
 
