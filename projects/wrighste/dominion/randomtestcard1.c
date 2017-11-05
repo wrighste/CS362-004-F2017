@@ -21,29 +21,47 @@
 #define NOISY_TEST 1
 
 
-int checkBaron(int p, struct gameState *pre) {
+int checkBaron(int p, struct gameState *post) {
   int r;
-  int currentPlayer = whoseTurn(pre);
   int cardDrawn;
   int pretreasureinhand = 0;
   int posttreasureinhand = 0;
       int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
-  int cards[10] = {adventurer, council_room, feast, gardens, mine,
-         remodel, smithy, village, baron, great_hall};
-  struct gameState post;
-  memcpy (&post, &pre, sizeof(struct gameState));
-
-  cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
-  playCard(handpos, choice1, choice2, choice3, &post);
+  struct gameState pre;
+  memcpy (&pre, &post, sizeof(struct gameState));
  
- // int preHandCount = pre->handCount[currentPlayer];
-  if (pre->discardCount[currentPlayer] != (post.discardCount[currentPlayer] + 1))
- 	{
-		printf("%s not correctly discarding estate card \n", "Baron ");	
+  cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
+ // playCard(handpos, choice1, choice2, choice3, &post);
+
+//////////////////
+
+
+ //  if (pre.deckCount[p] > 0) {
+  //   pre.handCount[p]++;
+  //   pre.hand[p][pre.handCount[p]-1] = pre.deck[p][pre.deckCount[p]-1];
+  //   pre.deckCount[p]--;
+  // } else if (pre.discardCount[p] > 0) {
+  //   memcpy(pre.deck[p], post->deck[p], sizeof(int) * pre.discardCount[p]);
+  //   memcpy(pre.discard[p], post->discard[p], sizeof(int)*pre.discardCount[p]);
+  //   pre.hand[p][post->handCount[p]-1] = post->hand[p][post->handCount[p]-1];
+  //   pre.handCount[p]++;
+  //   pre.deckCount[p] = pre.discardCount[p]-1;
+  //   pre.discardCount[p] = 0;
+  // }
+
+
+  //int currentPlayer = whoseTurn(post);
+ 
+	int preHandCount = pre.discardCount[p];
+   int expected = preHandCount - 1;
+  //int currentPlayer = whoseTurn(post);
+  int actual = post->discardCount[p];
+  if (preHandCount != expected)
+  	{
+	 	printf("%s not correctly discarding estate card. Expected=%i Actual=%i \n", "Baron ",expected , actual);	
  	}
 
-  //	r = peformBaronActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
-  }
+}
  
  
 
@@ -72,19 +90,24 @@ int main () {
   printf ("Testing Baron .\n");
 
   SelectStream(2);
-  PutSeed(3);
+ // PutSeed(3);
 
 //int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 //		   struct gameState *state) 
-  for (n = 0; n < 20000; n++) {
+    for (n = 1; n < 30; n++) {
+   	for (i = 0; i < sizeof(struct gameState); i++) {
+       ((char*)&G)[i] = floor(Random() * 256);
+    }
   	p = floor(Random() * 2);
   	G.deckCount[p] = floor(Random() * MAX_DECK);	
   	G.discardCount[p] = floor(Random() * MAX_DECK);
   	G.handCount[p] = floor(Random() * MAX_HAND);
   	memset(&G, 23, sizeof(struct gameState)); 
-  	r = initializeGame(4, k, 21, &G);
+  	//initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
+	//	   struct gameState *state)
+  	r = initializeGame(p, k, 21, &G);
   	checkBaron(p, &G);
-  }
+   }
   return 0;
 }
 

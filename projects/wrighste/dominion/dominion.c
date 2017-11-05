@@ -717,8 +717,8 @@ while(z3-1>=0){
  peformBaronActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int drawntreasure,int currentPlayer2,int cardDrawn,int temphand[],int z3,int i3)
  {
      
-     printf("choice 1 is %i",choice1);
-     printf("current player in pefformBaron is %i ",currentPlayer);
+     //printf("choice 1 is %i",choice1);
+    // printf("current player in pefformBaron is %i ",currentPlayer);
  
      state->numBuys++;//Increase buys by 1!
     // return -1;
