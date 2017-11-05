@@ -31,26 +31,8 @@ int checkBaron(int p, struct gameState *post) {
   memcpy (&pre, &post, sizeof(struct gameState));
  
   cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
- // playCard(handpos, choice1, choice2, choice3, &post);
-
-//////////////////
-
-
- //  if (pre.deckCount[p] > 0) {
-  //   pre.handCount[p]++;
-  //   pre.hand[p][pre.handCount[p]-1] = pre.deck[p][pre.deckCount[p]-1];
-  //   pre.deckCount[p]--;
-  // } else if (pre.discardCount[p] > 0) {
-  //   memcpy(pre.deck[p], post->deck[p], sizeof(int) * pre.discardCount[p]);
-  //   memcpy(pre.discard[p], post->discard[p], sizeof(int)*pre.discardCount[p]);
-  //   pre.hand[p][post->handCount[p]-1] = post->hand[p][post->handCount[p]-1];
-  //   pre.handCount[p]++;
-  //   pre.deckCount[p] = pre.discardCount[p]-1;
-  //   pre.discardCount[p] = 0;
-  // }
-
-
-  //int currentPlayer = whoseTurn(post);
+  //playCard(handpos, choice1, choice2, choice3, &post);
+ 
  
 	int preHandCount = pre.discardCount[p];
    int expected = preHandCount - 1;
@@ -94,7 +76,7 @@ int main () {
 
 //int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 //		   struct gameState *state) 
-    for (n = 1; n < 30; n++) {
+    for (n = 1; n < 3000; n++) {
    	for (i = 0; i < sizeof(struct gameState); i++) {
        ((char*)&G)[i] = floor(Random() * 256);
     }
