@@ -31,7 +31,7 @@ int checkBaron(int p, struct gameState *post) {
   memcpy (&pre, &post, sizeof(struct gameState));
  
   cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
-  //playCard(handpos, choice1, choice2, choice3, &post);
+ ;
  
  
 	int preHandCount = pre.discardCount[p];
@@ -85,8 +85,7 @@ int main () {
   	G.discardCount[p] = floor(Random() * MAX_DECK);
   	G.handCount[p] = floor(Random() * MAX_HAND);
   	memset(&G, 23, sizeof(struct gameState)); 
-  	//initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
-	//	   struct gameState *state)
+ 
   	r = initializeGame(p, k, 21, &G);
   	checkBaron(p, &G);
    }

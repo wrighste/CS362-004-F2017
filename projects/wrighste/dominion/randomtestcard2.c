@@ -15,39 +15,38 @@
 #define DEBUG 0
 #define NOISY_TEST 1
 
- 
+int seaHagErrorCount; 
+int seaMethodRuns; 
 
-int checkSalvager(int p, struct gameState *post) {
+
+int checkSeaHag(int p, struct gameState *post) {
   int r;
+  seaMethodRuns++;
 
      
   int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0, EndinggnumNumBuys = 0,StartingNumBuys = 0;
   int cards[10] = {adventurer, council_room, feast, gardens, mine,
           remodel, smithy, village, baron, great_hall};
-  //r = peformSalvagerActions(0, 0, 0, 0, &post, 0, 0, 0,0,0,cards,0,0);
+ 
 
   struct gameState pre;
   memcpy (&pre, &post, sizeof(struct gameState));
  
-  cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
-  //playCard(handpos, choice1, choice2, choice3, &post);
-  int randomInt = rand() % 10 + 1;
-  if (randomInt < 6)
-  {
-  	choice1 = 1;
-  } else
-  {
-  	choice1 = 0;
-  }
-  
+  cardEffect(sea_hag, choice1, choice2, choice3, &post, handpos, &bonus);
  
-  StartingNumBuys = post->numBuys;
-  int expectedNumBuys = StartingNumBuys + 1; //post->numBuys + 1;
-  int ActualNumBuys = post->numBuys; //post->numBuys + 1;
-  if (StartingNumBuys != ActualNumBuys)
-  	{
-    	printf ("The Salvager method did not increment buy properly. Expected: %i  Actual: i% \n",expectedNumBuys ,ActualNumBuys );
- 	}; 
+ ////
+  int i3; 
+  for (i3 = 0; i3 < post->numPlayers; i3++){
+      if (i3 != p)
+      {
+       if (post->deck[i3][post->deckCount[i3]] != curse)
+      	{
+          seaHagErrorCount++;
+        } 
+      }	
+    } 
+ 
+ 
   }
  
  
@@ -74,14 +73,11 @@ int main () {
 	       remodel, smithy, village, baron, great_hall};
 
 
-  printf ("Testing Salvager .\n");
-
+  printf ("Testing Sea hag .\n");
+  seaHagErrorCount = 0;
+  seaMethodRuns = 0;
   SelectStream(2);
- // PutSeed(3);
-
-//int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
-//		   struct gameState *state) 
-     for (n = 1; n < 3000  ; n++) {
+  for (n = 1; n < 2000  ; n++) {
    	for (i = 0; i < sizeof(struct gameState); i++) {
        ((char*)&G)[i] = floor(Random() * 256);
     }
@@ -91,11 +87,15 @@ int main () {
   	G.discardCount[p] = floor(Random() * MAX_DECK);
   	G.handCount[p] = floor(Random() * MAX_HAND);
   	memset(&G, 23, sizeof(struct gameState)); 
-  	//initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
-	//	   struct gameState *state)
-  	//r = initializeGame(p, k, 21, &G);
-  	checkSalvager(p, &G);
-     }
+ 
+  	r = initializeGame(p, k, 21, &G);
+  	checkSeaHag(p, &G);
+ }
+ if (seaHagErrorCount > 0)  
+ {
+      printf ("Total number of sea hag methods run: %i out of those, the method failed to set the top card to curse %i times\n", seaHagErrorCount,seaMethodRuns);
+ } 
+
   return 0;
 }
 

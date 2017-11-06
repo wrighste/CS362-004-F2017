@@ -1,8 +1,8 @@
         -:    0:Source:dominion.c
         -:    0:Graph:dominion.gcno
         -:    0:Data:dominion.gcda
-        -:    0:Runs:36
-        -:    0:Programs:34
+        -:    0:Runs:40
+        -:    0:Programs:38
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
         -:    3:#include "rngs.h"
@@ -39,20 +39,20 @@
     #####:   34:  return k;
         -:   35:}
         -:   36:
-     9256:   37:int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
+    12256:   37:int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
         -:   38:		   struct gameState *state) {
         -:   39:
         -:   40:  int i;
         -:   41:  int j;
         -:   42:  int it;			
         -:   43:  //set up random number generator
-     9256:   44:  SelectStream(1);
-     9256:   45:  PutSeed((long)randomSeed);
+    12256:   44:  SelectStream(1);
+    12256:   45:  PutSeed((long)randomSeed);
         -:   46:  
         -:   47:  //check number of players
-     9256:   48:  if (numPlayers > MAX_PLAYERS || numPlayers < 2)
+    12256:   48:  if (numPlayers > MAX_PLAYERS || numPlayers < 2)
         -:   49:    {
-     9256:   50:      return -1;
+    12256:   50:      return -1;
         -:   51:    }
         -:   52:
         -:   53:  //set number of players
@@ -322,8 +322,8 @@
     #####:  317:  return state->hand[currentPlayer][handPos];
         -:  318:}
         -:  319:
-    12529:  320:int supplyCount(int card, struct gameState *state) {
-    12529:  321:  return state->supplyCount[card];
+    21526:  320:int supplyCount(int card, struct gameState *state) {
+    21526:  321:  return state->supplyCount[card];
         -:  322:}
         -:  323:
     #####:  324:int fullDeckCount(int player, int card, struct gameState *state) {
@@ -348,8 +348,8 @@
     #####:  343:  return count;
         -:  344:}
         -:  345:
-    25496:  346:int whoseTurn(struct gameState *state) {
-    25496:  347:  return state->whoseTurn;
+    43492:  346:int whoseTurn(struct gameState *state) {
+    43492:  347:  return state->whoseTurn;
         -:  348:}
         -:  349:
     #####:  350:int endTurn(struct gameState *state) {
@@ -648,33 +648,33 @@
     #####:  643:  return -1;
         -:  644:}
         -:  645://////
-    12748:  646: int selectCardAndPeformActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus,int cardDrawn,int *temphand,int z2,int i2)
+    21746:  646: int selectCardAndPeformActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus,int cardDrawn,int *temphand,int z2,int i2)
         -:  647: {
-    12748:  648:  int currentPlayer = whoseTurn(state); 
+    21746:  648:  int currentPlayer = whoseTurn(state); 
         -:  649:  int result;
         -:  650://   printf("current player in select is %i ",currentPlayer);
-    12748:  651:	result = -1;
-    12748:  652:  	if (card == adventurer)
+    21746:  651:	result = -1;
+    21746:  652:  	if (card == adventurer)
         -:  653:	{
     #####:  654:		result = peformAdventurerActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
-    12748:  655:	} else if (card == smithy)
+    21746:  655:	} else if (card == smithy)
         -:  656:	{
       219:  657:		result = peformsmithyActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
-    12529:  658:	} else if  (card == baron)
+    21527:  658:	} else if  (card == baron)
         -:  659:	{
         -:  660:	//	printf("current playa just before performbaron call: %i ",currentPlayer);
-    12529:  661:		result = peformBaronActions(card, choice1, choice2, choice3, state, handPos,currentPlayer ,cardDrawn,*temphand,z2,i2);
+    21526:  661:		result = peformBaronActions(card, choice1, choice2, choice3, state, handPos,currentPlayer ,cardDrawn,*temphand,z2,i2);
         -:  662:	
-    #####:  663:	} else if  (card == salvager)
+        1:  663:	} else if  (card == salvager)
         -:  664:	{
     #####:  665:		result = peformSalvagerActions(card, choice1, choice2, choice3, state, handPos,currentPlayer,cardDrawn,*temphand,z2,i2);
         -:  666:
-    #####:  667:	} else if  (card == sea_hag)
+        1:  667:	} else if  (card == sea_hag)
         -:  668:	{
-    #####:  669:		result = peformSeaHagctions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
+        1:  669:		result = peformSeaHagctions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
         -:  670:
         -:  671:	}
-    12748:  672:	return result;
+    21746:  672:	return result;
         -:  673: }
         -:  674:
         -:  675:///////
@@ -719,15 +719,15 @@
         -:  714://  ////////////////////////////
         -:  715:
         -:  716:////////////////////////////////
-    12529:  717: peformBaronActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int drawntreasure,int currentPlayer2,int cardDrawn,int temphand[],int z3,int i3)
+    21526:  717: peformBaronActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int drawntreasure,int currentPlayer2,int cardDrawn,int temphand[],int z3,int i3)
         -:  718: {
         -:  719:     
         -:  720:     //printf("choice 1 is %i",choice1);
         -:  721:    // printf("current player in pefformBaron is %i ",currentPlayer);
         -:  722: 
-    12529:  723:     state->numBuys++;//Increase buys by 1!
+    21526:  723:     state->numBuys++;//Increase buys by 1!
         -:  724:    // return -1;
-    12529:  725:     if (choice1 > 0){//Boolean true or going to discard an estate
+    21526:  725:     if (choice1 > 0){//Boolean true or going to discard an estate
     #####:  726:	int p = 0;//Iterator for hand!
     #####:  727:	int card_not_discarded = 1;//Flag for discard set!
     #####:  728:	while(card_not_discarded){
@@ -769,7 +769,7 @@
         -:  764:      }
         -:  765:			    
         -:  766:      else{
-    12529:  767:	if (supplyCount(estate, state) > 0){
+    21526:  767:	if (supplyCount(estate, state) > 0){
     #####:  768:	printf("estate= %i currentplayer=%i",estate,currentPlayer); 
     #####:  769:	gainCard(estate, state, 0, currentPlayer);//Gain an estate
     #####:  770:	  state->supplyCount[estate]--;//Decrement Estates
@@ -780,7 +780,7 @@
         -:  775:     }
         -:  776:	    
         -:  777:      
-    12529:  778:      return 0;
+    21526:  778:      return 0;
         -:  779: 
         -:  780: 
         -:  781:}
@@ -807,46 +807,46 @@
         -:  802:
         -:  803:// ///////////////////////
         -:  804:
-    #####:  805:peformSeaHagctions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
+        1:  805:peformSeaHagctions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
         -:  806:{
-    #####:  807:      for (i3 = 0; i3 < state->numPlayers; i3++){
+        1:  807:      for (i3 = 0; i3 < state->numPlayers; i3++){
     #####:  808:	if (i3 == currentPlayer){
     #####:  809:	  state->discard[i3][state->discardCount[i3]] = state->deck[i3][state->deckCount[i3]--];			    state->deckCount[i3]--;
     #####:  810:	  state->discardCount[i3]++;
     #####:  811:	  state->deck[i3][state->deckCount[i3]--] = curse;//Top card now a curse
         -:  812:	}
         -:  813:      }
-    #####:  814:      return 0;
+        1:  814:      return 0;
         -:  815:
         -:  816:
         -:  817:}
         -:  818:///////
-    12748:  819:int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
+    21746:  819:int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
         -:  820:{
         -:  821:  int i;
         -:  822:  int j;
         -:  823:  int k;
         -:  824:  int x;
         -:  825:  int index;
-    12748:  826:  int currentPlayer = whoseTurn(state);
-    12748:  827:  int nextPlayer = currentPlayer + 1;
+    21746:  826:  int currentPlayer = whoseTurn(state);
+    21746:  827:  int nextPlayer = currentPlayer + 1;
         -:  828:
-    12748:  829:  int tributeRevealedCards[2] = {-1, -1};
+    21746:  829:  int tributeRevealedCards[2] = {-1, -1};
         -:  830:  int temphand[MAX_HAND];// moved above the if statement
-    12748:  831:  int drawntreasure=0;
+    21746:  831:  int drawntreasure=0;
         -:  832:  int cardDrawn;
-    12748:  833:  int z = 0;// this is the counter for the temp hand
+    21746:  833:  int z = 0;// this is the counter for the temp hand
         -:  834:  
         -:  835:  
-    12748:  836:  if (nextPlayer > (state->numPlayers - 1)){
-     9634:  837:    nextPlayer = 0;
+    21746:  836:  if (nextPlayer > (state->numPlayers - 1)){
+    12634:  837:    nextPlayer = 0;
         -:  838:  }
         -:  839:  
         -:  840://////////////////
         -:  841:
-    12748:  842:  if (selectCardAndPeformActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn, temphand,z,i) > -1)
+    21746:  842:  if (selectCardAndPeformActions(card, choice1, choice2, choice3, state, handPos, bonus,cardDrawn, temphand,z,i) > -1)
         -:  843:  {
-    12529:  844:    return 0;  //refactored method used, so skip out of the rest of cardEffect method  
+    21527:  844:    return 0;  //refactored method used, so skip out of the rest of cardEffect method  
         -:  845:  }
         -:  846:
         -:  847://///////////	
