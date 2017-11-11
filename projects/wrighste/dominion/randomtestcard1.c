@@ -26,10 +26,20 @@ int checkBaron(int p, struct gameState *post) {
   int cardDrawn;
   int pretreasureinhand = 0;
   int posttreasureinhand = 0;
-      int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+      int handpos = 0, choice1 = 1, choice2 = 0, choice3 = 0, bonus = 0;
   struct gameState pre;
   memcpy (&pre, &post, sizeof(struct gameState));
- 
+  
+  int randomInt = rand() % 10 + 1;
+   if (randomInt < 6)
+  {
+   //  choice1 = 1;
+  } //else
+ // {
+  //  choice1 = 0;
+ // }
+  
+
   cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
  ;
  
@@ -40,7 +50,7 @@ int checkBaron(int p, struct gameState *post) {
   int actual = post->discardCount[p];
   if (preHandCount != expected)
   	{
-	 	printf("%s not correctly discarding estate card. Expected=%i Actual=%i \n", "Baron ",expected , actual);	
+	 	//printf("%s not correctly discarding estate card. Expected=%i Actual=%i \n", "Baron ",expected , actual);	
  	}
 
 }
@@ -76,7 +86,7 @@ int main () {
 
 //int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 //		   struct gameState *state) 
-    for (n = 1; n < 3000; n++) {
+    for (n = 1; n < 30 ; n++) {
    	for (i = 0; i < sizeof(struct gameState); i++) {
        ((char*)&G)[i] = floor(Random() * 256);
     }

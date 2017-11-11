@@ -59,20 +59,20 @@ runtests: testDrawCard
 	cat dominion.c.gcov >> unittestresult.out
 
 runrandomadventurer: randomtestadventurer
-	./randomtestadventurer &> unittestresult.out
-	gcov -f dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+	./randomtestadventurer &> randomtestadventurer.out
+	gcov -f dominion.c >> randomtestadventurer.out 
+	cat dominion.c.gcov >> randomtestadventurer.out
 
 runrandomtestcard1: randomtestcard1
-	./randomtestcard1 &> unittestresult.out
-	gcov -f dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+	./randomtestcard1 &> randomtestcard1.out
+	gcov -f dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
 
 
 runrandomtestcard2: randomtestcard2
-	./randomtestcard2 &> unittestresult.out
-	gcov -f dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+	./randomtestcard2 &> randomtestcard2.out
+	gcov -f dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
 
 rununit1: unittest1
 	./unittest1 &> unittestresult.out

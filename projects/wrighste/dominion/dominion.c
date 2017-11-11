@@ -708,7 +708,7 @@ while(z3-1>=0){
       
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
-      return -1;
+      return 0;
  }
  
 //  ////////////////////////////

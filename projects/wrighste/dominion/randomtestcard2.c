@@ -15,13 +15,12 @@
 #define DEBUG 0
 #define NOISY_TEST 1
 
-int seaHagErrorCount; 
-int seaMethodRuns; 
+ 
 
 
-int checkSeaHag(int p, struct gameState *post) {
+int checkSmithy(int p, struct gameState *post) {
   int r;
-  seaMethodRuns++;
+ 
 
      
   int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0, EndinggnumNumBuys = 0,StartingNumBuys = 0;
@@ -31,20 +30,29 @@ int checkSeaHag(int p, struct gameState *post) {
 
   struct gameState pre;
   memcpy (&pre, &post, sizeof(struct gameState));
+  
+ // int originalHandCount =   post->handCount[p];
+  cardEffect(smithy, choice1, choice2, choice3, &post, handpos, &bonus);
+ // int expectedHandCount =  originalHandCount + 3;
+ // int actualHandCount =  post->handCount[p];
+
  
-  cardEffect(sea_hag, choice1, choice2, choice3, &post, handpos, &bonus);
- 
+ // if (expectedHandCount != actualHandCount)
+   // {
+  //  printf("smithy is not correctly adding cards. Expected=%i Actual=%i \n", "Baron ",expectedHandCount , actualHandCount);  
+ // }
+
  ////
-  int i3; 
-  for (i3 = 0; i3 < post->numPlayers; i3++){
-      if (i3 != p)
-      {
-       if (post->deck[i3][post->deckCount[i3]] != curse)
-      	{
-          seaHagErrorCount++;
-        } 
-      }	
-    } 
+  // int i3; 
+  // for (i3 = 0; i3 < post->numPlayers; i3++){
+  //     if (i3 != p)
+  //     {
+  //      if (post->deck[i3][post->deckCount[i3]] != curse)
+  //     	{
+  //         seaHagErrorCount++;
+  //       } 
+  //     }	
+  //   } 
  
  
   }
@@ -74,8 +82,7 @@ int main () {
 
 
   printf ("Testing Sea hag .\n");
-  seaHagErrorCount = 0;
-  seaMethodRuns = 0;
+ 
   SelectStream(2);
   for (n = 1; n < 2000  ; n++) {
    	for (i = 0; i < sizeof(struct gameState); i++) {
@@ -89,12 +96,9 @@ int main () {
   	memset(&G, 23, sizeof(struct gameState)); 
  
   	r = initializeGame(p, k, 21, &G);
-  	checkSeaHag(p, &G);
+  	checkSmithy(p, &G);
  }
- if (seaHagErrorCount > 0)  
- {
-      printf ("Total number of sea hag methods run: %i out of those, the method failed to set the top card to curse %i times\n", seaHagErrorCount,seaMethodRuns);
- } 
+ 
 
   return 0;
 }
