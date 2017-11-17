@@ -19,13 +19,16 @@ int checkUnit3(int p, struct gameState *post) {
   int expectedNumBuys = StartingNumBuys + 1;
     int cards[10] = {adventurer, council_room, feast, gardens, mine,
          remodel, smithy, village, baron, great_hall};
-
+ int choice1 = 0; int choice2 = 0; int choice3 = 0;
+  int handPos = 1;
+  int bonus = 1;
+   r =  cardEffect(baron, choice1, choice2, choice3, post, handPos, bonus);
   // r = peformBaronActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
-  // int EndinggnumNumBuys = post->numBuys;
-  // if (StartingNumBuys != EndinggnumNumBuys)
-  //       {
-  //        printf ("The Baron method did not increment buy properly.\n");
-  //       }; 
+   int EndinggnumNumBuys = post->numBuys;
+   if (StartingNumBuys != EndinggnumNumBuys)
+         {
+          printf ("The Baron method did not increment buy properly.\n");
+         }; 
   }
 int main () {
 

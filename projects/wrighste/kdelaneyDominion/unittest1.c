@@ -10,25 +10,34 @@
 
 int checkUnit1(int p, struct gameState *post) {
   int r;
+  int cardDrawn;
+  int pretreasureinhand = 0;
+  int choice1 = 0; int choice2 = 0; int choice3 = 0;
+  int handPos = 1;
+  int bonus = 1;
+
   int cards[10] = {adventurer, council_room, feast, gardens, mine,
          remodel, smithy, village, baron, great_hall};
+
+  r =  cardEffect(adventurer, choice1, choice2, choice3, post, handPos, bonus);
+
  // r = peformSeaHagctions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
- // int i3;
-  // int currentPlayer = whoseTurn(post);
-  // for (i3 = 0; i3 < post->numPlayers; i3++){
-  //   if (i3 != currentPlayer){
-  //     if (post->deck[i3][post->deckCount[i3]--] != curse)
-  //       {
-  //        printf ("This is other than current player, and top card is not a curse card.\n");
-  //       }; 
-  //   } else if (i3 == currentPlayer)
-  //   {
-  //     if (post->deck[i3][post->deckCount[i3]--] == curse)
-  //       {
-  //        printf ("This is current player, and top card is a curse card.\n");
-  //       };
-  //   }
-  // }
+   int i3;
+    int currentPlayer = whoseTurn(post);
+    for (i3 = 0; i3 < post->numPlayers; i3++){
+      if (i3 != currentPlayer){
+        if (post->deck[i3][post->deckCount[i3]--] != curse)
+         {
+          printf ("This is other than current player, and top card is not a curse card.\n");
+         }; 
+     } else if (i3 == currentPlayer)
+     {
+       if (post->deck[i3][post->deckCount[i3]--] == curse)
+         {
+          printf ("This is current player, and top card is a curse card.\n");
+         };
+      }
+    }
 }
 
 
