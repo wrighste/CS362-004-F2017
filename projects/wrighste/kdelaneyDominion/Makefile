@@ -32,6 +32,9 @@ rununit1: unittest1
 	gcov dominion.c >> unittest1result.out
 	cat dominion.c.gcov >> unittest1result.out 	
  
+gdbu1: unittest1
+	gdb unittest1
+
 unittest2: unittest2.c dominion.o rngs.o
 	gcc  -o unittest2 -g unittest2.c dominion.o rngs.o ${CFLAGS}
 
@@ -41,6 +44,9 @@ rununit2: unittest2
 	gcov dominion.c >> unittest2result.out
 	cat dominion.c.gcov >> unittest2result.out	
 
+gdbu2: unittest2
+	gdb unittest2
+
 unittest3: unittest3.c dominion.o rngs.o
 	gcc -o unittest3 -g unittest3.c dominion.o rngs.o ${CFLAGS}
 
@@ -48,7 +54,10 @@ rununit3: unittest3
 	./unittest3 &> unittest3result.out
 	gcov dominion.c >> unittest3result.out
 	cat dominion.c.gcov >> unittest3result.out
-		
+
+gdbu3: unittest3
+	gdb unittest3
+			
 unittest4: unittest4.c dominion.o rngs.o
 	gcc -o unittest4 -g unittest4.c dominion.o rngs.o ${CFLAGS} 
 
@@ -56,6 +65,9 @@ rununit4: unittest4
 	./unittest4 &> unittest4result.out	
 	gcov dominion.c >> unittest4result.out
 	cat dominion.c.gcov >> unittest4result.out
+
+gdbu4: unittest4
+	gdb unittest4
 
 randomadventurer: randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o ${CFLAGS}
@@ -65,6 +77,12 @@ runrandomadventurer: randomtestadventurer
 	gcov -f dominion.c >> randomtestadventurerresult.out
 	cat dominion.c.gcov >> randomtestadventurerresult.out
 
+gdbrana1: randomtestadventurer
+	gdb unirandomtestadventurerttest2
+
+gdba1: randomtestadventurer
+	gdb randomtestadventurer
+
 randomtestcard1: randomtestcard1.c dominion.o rngs.o
 	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o  rngs.o ${CFLAGS}
  
@@ -73,9 +91,14 @@ runrandomtestcard1: randomtestcard1
 	gcov -f dominion.c >> randomtestcard1result.out
 	cat dominion.c.gcov >> randomtestcard1result.out
 
+gdbr1: randomtestcard1
+	gdb randomtestcard1
+ 
 randomtestcard2: randomtestcard2.c dominion.o rngs.o
 	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o ${CFLAGS} 	
 
+gdbr2: randomtestcard2
+	gdb randomtestcard2
 runrandomtestcard2: randomtestcard2
 	./randomtestcard2 &> randomtestcard2result.out
 	gcov -f dominion.c >> randomtestcard2result.out
