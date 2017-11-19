@@ -1,0 +1,16 @@
+Summary:Sea Hag is not properly setting other plays top card to curse card.
+
+Details:  
+
+In dominion.c, within the cardEffect method, within the big case statement, the code the for sea hag card is not following the rules described in the game. The sea hag should set every other plays top card to a curse card. The code is not doing this. Please execute the unit test located in the file "unittestseahag.c", add the following to your makefile, and view u1.out.
+
+
+
+seahagUnit1: unittestseahag.c dominion.o rngs.o
+
+	gcc  -o unittestseahag -g  unittestseahag.c dominion.o rngs.o $(CFLAGS)
+
+runseahagUnit1: unittestseahag
+	./unittestseahag &> u1.out
+	gcov dominion.c >> u1.out
+	cat dominion.c.gcov >> u1.out 	

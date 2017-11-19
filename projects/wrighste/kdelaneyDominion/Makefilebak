@@ -35,18 +35,6 @@ runu1: unittest1
 gdbu1: unittest1
 	gdb unittest1
 
-##--for seah hag bug---------------------------
-
-seahagUnit1: unittestseahag.c dominion.o rngs.o
-
-	gcc  -o unittestseahag -g  unittestseahag.c dominion.o rngs.o $(CFLAGS)
-
-runseahagUnit1: unittestseahag
-	./unittestseahag &> u1.out
-	gcov dominion.c >> u1.out
-	cat dominion.c.gcov >> u1.out 	
-#----------
-
 u2: unittest2.c dominion.o rngs.o
 	gcc  -o unittest2 -g unittest2.c dominion.o rngs.o ${CFLAGS}
 
