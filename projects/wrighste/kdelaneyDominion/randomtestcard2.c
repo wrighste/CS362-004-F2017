@@ -64,9 +64,9 @@ int main () {
   int i, n, r, p, deckCount, discardCount, handCount;
 
   int card;
-  int choice1;
-  int choice2;
-  int choice3;
+  int choice1 = 0;
+  int choice2 = 0;
+  int choice3 = 0;
   int handPos;
   int *bonus;
   int drawntreasure;
@@ -74,8 +74,10 @@ int main () {
   int cardDrawn;
   int temphand[MAX_HAND];// moved above the if statement  int z3;
   int i3;
+  int handpos = 0;
   
   struct gameState G ;
+  struct gameState testG ;
   //struct gameState *state, 
   int k[10] = {adventurer, council_room, feast, gardens, mine,
 	       remodel, smithy, village, baron, great_hall};
@@ -85,19 +87,31 @@ int main () {
  
   SelectStream(2);
   for (n = 1; n < 2000  ; n++) {
-   	for (i = 0; i < sizeof(struct gameState); i++) {
-       ((char*)&G)[i] = floor(Random() * 256);
-    }
+   	//for (i = 0; i < sizeof(struct gameState); i++) {
+    //   ((char*)&G)[i] = floor(Random() * 256);
+    //}
   	p = floor(Random() * 2);
+    r = initializeGame(p, k, 21, &G);
+    memcpy (&testG, &G, sizeof(struct gameState));
  
   	G.deckCount[p] = floor(Random() * MAX_DECK);	
   	G.discardCount[p] = floor(Random() * MAX_DECK);
   	G.handCount[p] = floor(Random() * MAX_HAND);
-  	memset(&G, 23, sizeof(struct gameState)); 
+ // 	memset(&G, 23, sizeof(struct gameState)); 
  
-  	r = initializeGame(p, k, 21, &G);
-  	checkSmithy(p, &G);
- }
+  //	checkSmithy(p, &G);
+///////////////////
+     
+
+  
+ // int originalHandCount =   post->handCount[p];
+  cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+
+/////////////// 
+
+
+}
  
 
   return 0;

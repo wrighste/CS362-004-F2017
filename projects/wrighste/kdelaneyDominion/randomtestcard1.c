@@ -26,33 +26,11 @@ int checkBaron(int p, struct gameState *post) {
   int cardDrawn;
   int pretreasureinhand = 0;
   int posttreasureinhand = 0;
-      int handpos = 0, choice1 = 1, choice2 = 0, choice3 = 0, bonus = 0;
+   
+  int handpos = 0, choice1 = 1, choice2 = 0, choice3 = 0, bonus = 0;
   struct gameState pre;
   memcpy (&pre, &post, sizeof(struct gameState));
-  
-  int randomInt = rand() % 10 + 1;
-   if (randomInt < 6)
-  {
-   //  choice1 = 1;
-  } //else
- // {
-  //  choice1 = 0;
- // }
-  
-
-  cardEffect(baron, choice1, choice2, choice3, &post, handpos, &bonus);
- ;
  
- 
-	int preHandCount = pre.discardCount[p];
-   int expected = preHandCount - 1;
-  //int currentPlayer = whoseTurn(post);
-  int actual = post->discardCount[p];
-  if (preHandCount != expected)
-  	{
-	 	//printf("%s not correctly discarding estate card. Expected=%i Actual=%i \n", "Baron ",expected , actual);	
- 	}
-
 }
  
  
@@ -66,39 +44,63 @@ int main () {
   int choice2;
   int choice3;
   int handPos;
-  int *bonus;
+  int bonus;
   int drawntreasure;
   int currentPlayer;
   int cardDrawn;
   int temphand[MAX_HAND];// moved above the if statement  int z3;
   int i3;
   
-  struct gameState G ;
+  struct gameState G;
+  struct gameState testG;
   //struct gameState *state, 
   int k[10] = {adventurer, council_room, feast, gardens, mine,
 	       remodel, smithy, village, baron, great_hall};
-
-
+  int pretreasureinhand = 0;
+  int posttreasureinhand = 0;
+   
+  int handpos = 0;
+  choice1 = 1;
+  choice2 = 0;
+  choice3 = 0;
+  bonus = 0;
   printf ("Testing Baron .\n");
 
-  SelectStream(2);
- // PutSeed(3);
+     for (n = 1; n < 1000 ; n++) { //change from 15 to 14 and no seg fault
+       p = floor(Random() * 2);
+       r = initializeGame(p, k, 1011, &G);
+       memcpy (&testG, &G, sizeof(struct gameState));
 
-//int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
-//		   struct gameState *state) 
-    for (n = 1; n < 30 ; n++) {
-   	for (i = 0; i < sizeof(struct gameState); i++) {
-       ((char*)&G)[i] = floor(Random() * 256);
-    }
-  	p = floor(Random() * 2);
-  	G.deckCount[p] = floor(Random() * MAX_DECK);	
-  	G.discardCount[p] = floor(Random() * MAX_DECK);
-  	G.handCount[p] = floor(Random() * MAX_HAND);
-  	memset(&G, 23, sizeof(struct gameState)); 
+  	   G.deckCount[p] = floor(Random() * MAX_DECK);	
+  	   G.discardCount[p] = floor(Random() * MAX_DECK);
+       G.handCount[p] = floor(Random() * MAX_HAND);
+  	// memset(&G, 23, sizeof(struct gameState)); 
+//  	   checkBaron(p, &G);
+  ////
  
-  	r = initializeGame(p, k, 21, &G);
-  	checkBaron(p, &G);
-   }
+  int randomInt = rand() % 10 + 1;
+   if (randomInt < 6)
+  {
+     choice1 = 1;
+  } else
+  {
+    choice1 = 0;
+  }
+ cardEffect(baron, choice1, choice2, choice3, &testG, handpos,  &bonus);
+ 
+ 
+  int preHandCount = G.discardCount[p];
+  int expected = preHandCount - 1;
+ // int currentPlayer = whoseTurn(G);
+  int actual = testG.discardCount[p];
+  if (actual != expected)
+    {
+     printf("%s not correctly discarding estate card. Expected=%i Actual=%i \n", "Baron ",preHandCount , expected);  
+    }
+
+
+  ///
+  }
   return 0;
 }
 

@@ -69,13 +69,13 @@ rununit4: unittest4
 gdbu4: unittest4
 	gdb unittest4
 
-randomadventurer: randomtestadventurer.c dominion.o rngs.o
+ranadv: randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o ${CFLAGS}
 
-runrandomadventurer: randomtestadventurer
-	./randomtestadventurer &> randomtestadventurerresult.out
-	gcov -f dominion.c >> randomtestadventurerresult.out
-	cat dominion.c.gcov >> randomtestadventurerresult.out
+runadv: randomtestadventurer
+	./randomtestadventurer &> ranadv.out
+	gcov -f dominion.c >> ranadv.out
+	cat dominion.c.gcov >> ranadv.out
 
 gdbrana1: randomtestadventurer
 	gdb unirandomtestadventurerttest2
@@ -83,27 +83,26 @@ gdbrana1: randomtestadventurer
 gdba1: randomtestadventurer
 	gdb randomtestadventurer
 
-randomtestcard1: randomtestcard1.c dominion.o rngs.o
+ran1: randomtestcard1.c dominion.o rngs.o
 	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o  rngs.o ${CFLAGS}
  
-runrandomtestcard1: randomtestcard1
-	./randomtestcard1 &> randomtestcard1result.out
-	gcov -f dominion.c >> randomtestcard1result.out
-	cat dominion.c.gcov >> randomtestcard1result.out
+runran1: randomtestcard1
+	./randomtestcard1 &> ran1.out
+	gcov -f dominion.c >> ran1.out
+	cat dominion.c.gcov >> ran1.out
 
 gdbr1: randomtestcard1
 	gdb randomtestcard1
  
-randomtestcard2: randomtestcard2.c dominion.o rngs.o
+ran2: randomtestcard2.c dominion.o rngs.o
 	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o ${CFLAGS} 	
 
 gdbr2: randomtestcard2
 	gdb randomtestcard2
-runrandomtestcard2: randomtestcard2
+runran2:  randomtestcard2
 	./randomtestcard2 &> randomtestcard2result.out
 	gcov -f dominion.c >> randomtestcard2result.out
 	cat dominion.c.gcov >> randomtestcard2result.out
-
 
 
 #project 5 above------------------------------------------------

@@ -109,8 +109,8 @@ int main() {
 		//for (i=0; i<MAX_KCARDS; i++) printf("\trand_kcard[%d] = %s\n", i, card[rand_kcard[i]]); 	printf("\n");
 
 		// initialize a game state and player cards
-		initializeGame(numPlayers, k, seed, &G);
-
+	//	initializeGame(numPlayers, k, seed, &G);
+ 		int r = initializeGame(4, k, 21, &G);
 		//		establish number of cards in hand from 2 to 10
 		rand_numhandcards = (rand() % (MAX_STARTING_CARDS - MIN_STARTING_CARDS + 1)) + MIN_STARTING_CARDS;
 		//printf("\tstarting cards in hand: %d\n", rand_numhandcards);
@@ -189,8 +189,14 @@ int main() {
 
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
-		play_adventurer(thisPlayer, drawntreasure, cardDrawn, temphand, &testG);
-
+		//play_adventurer(thisPlayer, drawntreasure, cardDrawn, temphand, &testG);
+ 
+		//peformAdventurerActions(TESTCARD, 1, 1, 1, &G, 1, thisPlayer,cardDrawn, temphand,1,1);
+		//peformAdventurerActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2);
+		int thishandPos = 1;
+		int thisbonus = 1;
+		//cardEffect(adventurer, 1, 1, 1, &testG, thishandPos, thisbonus);
+		//peformAdventurerActions(card, choice1, choice2, choice3, state, handPos, currentPlayer,cardDrawn,*temphand,z2,i2)
 		G_totalcount = G.handCount[thisPlayer] + G.deckCount[thisPlayer] + G.discardCount[thisPlayer];
 		testG_totalcount = testG.handCount[thisPlayer] + testG.deckCount[thisPlayer] + testG.discardCount[thisPlayer];
 		newTreas1 = testG.hand[thisPlayer][testG.handCount[thisPlayer]-1];

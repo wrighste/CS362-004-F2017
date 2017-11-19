@@ -19,7 +19,7 @@
 
 #define DEBUG 0
 #define NOISY_TEST 1
-
+#define NUMTEST 10000
 
 int checkAdventurer(int p, struct gameState *post) {
   int r;
@@ -31,10 +31,9 @@ int checkAdventurer(int p, struct gameState *post) {
   int cards[10] = {adventurer, council_room, feast, gardens, mine,
          remodel, smithy, village, baron, great_hall};
   struct gameState pre;
-  memcpy (&pre, post, sizeof(struct gameState));
-
- // int preHandCount = pre->handCount[currentPlayer];
-  int preHandCount = post->handCount[currentPlayer];
+  memcpy (&pre, &post, sizeof(struct gameState));
+   int preHandCount = pre.handCount[currentPlayer];
+  //int preHandCount = post->handCount[currentPlayer];
   int thiscard;
    for (thiscard = 0; thiscard<preHandCount; thiscard++) {
   	cardDrawn = pre.hand[currentPlayer][thiscard];//top card of hand is most recently drawn card.
@@ -45,16 +44,16 @@ int checkAdventurer(int p, struct gameState *post) {
    }
    int handPos  = 1;
    int bonus = 1;
-  //r = peformAdventurerActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
+   
   r =  cardEffect(adventurer, choice1, choice2, choice3, post, handPos, bonus);
 
   int postHandCount = post->handCount[currentPlayer];
 
    for (thiscard = 0; thiscard<postHandCount; thiscard++) {
   	cardDrawn = post->hand[currentPlayer][thiscard];//top card of hand is most recently drawn card.
- 	if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+ 	if (cardDrawn == copper || cardDrawn == silver  || cardDrawn == gold)
  	{
- 	  posttreasureinhand++;
+ 	   posttreasureinhand++;
 	}
    }
    int expectedpretreasureinhand = pretreasureinhand + 2;
@@ -95,7 +94,7 @@ int main () {
 
 //int initializeGame(int numPlayers, int kingdomCards[10], int randomSeed,
 //		   struct gameState *state) 
-  for (n = 0; n < 2000; n++) {
+  for (n = 0; n < NUMTEST; n++) {
   	p = floor(Random() * 2);
   	G.deckCount[p] = floor(Random() * MAX_DECK);	
   	G.discardCount[p] = floor(Random() * MAX_DECK);
