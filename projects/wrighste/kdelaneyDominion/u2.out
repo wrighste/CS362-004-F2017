@@ -1,3 +1,9 @@
+Testing Smithy actions.
+The smithy method did not increment the cards properly.
+File 'dominion.c'
+Lines executed:35.69% of 566
+Creating 'dominion.c.gcov'
+
         -:    0:Source:dominion.c
         -:    0:Graph:dominion.gcno
         -:    0:Data:dominion.gcda
