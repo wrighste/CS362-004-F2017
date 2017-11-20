@@ -15,9 +15,14 @@ int checkUnit2(int p, struct gameState *post) {
   int expectedEndNumCards = StartingnumCards + 3;
     int cards[10] = {adventurer, council_room, feast, gardens, mine,
          remodel, smithy, village, baron, great_hall};
-
-  r = peformsmithyActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
-  int EndinggnumCards = numHandCards(post);
+  
+  int cardDrawn;
+  
+  int choice1 = 0; int choice2 = 0; int choice3 = 0;
+  int handPos = 1;
+  int bonus = 1;
+   r =  cardEffect(smithy, choice1, choice2, choice3, post, handPos, bonus);
+ 
   if (StartingnumCards != expectedEndNumCards)
         {
          printf ("The smithy method did not increment the cards properly.\n");

@@ -12,28 +12,7 @@
 #define DEBUG 0
 #define NOISY_TEST 1
 
-
-// peformSalvagerActions(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus, int drawntreasure,int currentPlayer,int cardDrawn,int temphand[],int z3,int i3)
-// {
-//       //+1 buy
-//       state->numBuys++;
-      
-//       if (choice1)
-//   {
-//     //gain coins equal to trashed card
-//     state->coins = state->coins + getCost( handCard(choice1, state) );
-//     //trash card
-//     discardCard(choice1, currentPlayer, state, 1);  
-//   }
-      
-//       //discard card
-//       discardCard(handPos, currentPlayer, state, 0);
-//       return 0;
-
-
-// }
-
-// ///////////////////////
+ 
 int checkUnit4(int p, struct gameState *post) {
   int r;
 
@@ -42,13 +21,16 @@ int checkUnit4(int p, struct gameState *post) {
   int expectedNumBuys = StartingNumBuys + 1;
     int cards[10] = {adventurer, council_room, feast, gardens, mine,
          remodel, smithy, village, baron, great_hall};
-
-  r = peformSalvagerActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
-  int EndinggnumNumBuys = post->numBuys;
-  if (StartingNumBuys != EndinggnumNumBuys)
-        {
-         printf ("The Salvager method did not increment buy properly.\n");
-        }; 
+  int handPos = 1;
+  int bonus = 1;
+  int choice1 = 0; int choice2 = 0; int choice3 = 0;
+   r =  cardEffect(salvager, choice1, choice2, choice3, post, handPos, bonus);
+  // r = peformSalvagerActions(1, 1, 1, 1, post, 1, 1, 1,1,1,cards,1,1);
+   int EndinggnumNumBuys = post->numBuys;
+   if (StartingNumBuys != EndinggnumNumBuys)
+         {
+          printf ("The Salvager method did not increment buy properly.\n");
+         }; 
   }
 int main () {
 

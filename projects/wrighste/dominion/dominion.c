@@ -525,7 +525,7 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state) {
 int drawCard(int player, struct gameState *state)
 {	int count;
   int deckCounter;
-  if (state->deckCount[player] <= 0){//Deck is empty
+  if (state->deckCount[player] <= 1){//Deck is empty
     
     //Step 1 Shuffle the discard pile back into a deck
     int i;
