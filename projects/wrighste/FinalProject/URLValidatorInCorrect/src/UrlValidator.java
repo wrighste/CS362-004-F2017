@@ -97,7 +97,7 @@ public class UrlValidator implements Serializable {
      *  a {@link RegexValidator} instead ({@link #UrlValidator(RegexValidator, long)})
      */
     public static final long ALLOW_LOCAL_URLS = 1 << 3;
-
+ 
     // Drop numeric, and  "+-." for now
     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
 
