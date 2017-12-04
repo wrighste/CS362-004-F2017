@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or moref
  * contributor license agreements.  See the NOTICE file distributed with
@@ -35,8 +36,8 @@ public class UrlValidatorTest extends TestCase {
 	private boolean printStatus = false;
 	private boolean printIndex = false;// print index that indicates current scheme,host,port,path, query test were
 										// using.
-	private boolean printAllTestCases = false;
-	
+	private boolean printAllTestCases = true;
+
 	public UrlValidatorTest(String testName) {
 		super(testName);
 	}
@@ -59,7 +60,7 @@ public class UrlValidatorTest extends TestCase {
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualTestHttpsAllSchemesAllowed");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualTestHttpsAllSchemesAllowed");
 		}
 		assertEquals(result, true);
@@ -85,7 +86,7 @@ public class UrlValidatorTest extends TestCase {
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualgopherAllSchemesAllowed");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualgopherAllSchemesAllowed");
 		}
 		assertEquals(result, true);
@@ -97,7 +98,7 @@ public class UrlValidatorTest extends TestCase {
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualMailtoAllSchemes");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualMailtoAllSchemes");
 		}
 	}
@@ -109,7 +110,7 @@ public class UrlValidatorTest extends TestCase {
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualFakeSchemeAllSchemes");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualFakeSchemeAllSchemes");
 		}
 		assertEquals(result, true);
@@ -122,13 +123,69 @@ public class UrlValidatorTest extends TestCase {
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualTestHttpDefaultSchemesAllowed");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualTestHttpDefaultSchemesAllowed");
 		}
 		assertEquals(result, true);
 	}
 
-	public void testManualTestHttpsDefaultSchemesAllowed() {
+	public void testURLTooLong() {
+		UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+		String bigString = "9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmx wA"
+				+ "5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrYsddd"
+				+ "4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVd"
+				+ "ifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~p"
+				+ "FHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+				+ "RBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GN"
+				+ "QT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.O"
+				+ "bhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq"
+				+ "2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I"
+				+ "8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmx"
+				+ "wA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4"
+				+ "gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVi"
+				+ "fEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~p"
+				+ "FHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+				+ "RBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GN"
+				+ "QT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.Oc"
+				+ "y-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvl"
+				+ "5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gL"
+				+ "pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+				+ "1.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQT7X"
+				+ "2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdz~pFHuZ0GNQbhKWmxwAjdz~RBa3S6PqT7XS6Pq2CUvlmxwA5DnVifEMt";
+
+		
+//		String bigStringNoTilde = "9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA"
+//				+ "5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrYsddd"
+//				+ "4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVd"
+//				+ "ifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzp"
+//				+ "FHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+//				+ "RBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GN"
+//				+ "QT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.O"
+//				+ "bhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq"
+//				+ "2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I"
+//				+ "8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmx"
+//				+ "wA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4"
+//				+ "gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVi"
+//				+ "fEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzp"
+//				+ "FHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+//				+ "RBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GN"
+//				+ "QT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.Oc"
+//				+ "y-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvl"
+//				+ "5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gL"
+//				+ "pFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteok"
+//				+ "1.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7XS6Pq2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQT7X"
+//				+ "2CUvlmxwA5DnVifEMteokRBa31.OcbhKWy-I8s9JrY4gLjdzpFHuZ0GNQbhKWmxwAjdzRBa3S6PqT7XS6Pq2CUvlmxwA5DnVifEMt";
+		boolean result = (urlVal.isValid("http://www." + bigString + ".com"));
+		if (result && printAllTestCases) {
+			System.out.println("Test passed : testManualTestHttpDefaultSchemesAllowed");
+
+		} else {
+			System.out.println("Test failed: testManualTestHttpDefaultSchemesAllowed");
+		}
+		assertEquals(result, true);
+	}
+
+	public void c() {
 		UrlValidator urlVal = new UrlValidator();
 
 		boolean result = (urlVal.isValid("https://postman-echo.net/basic-auth"));
@@ -148,7 +205,7 @@ public class UrlValidatorTest extends TestCase {
 		if (result == false && printAllTestCases) {
 			System.out.println("Test passed : testManualFTPDefaultSchemesAllowed");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualFTPDefaultSchemesAllowed");
 		}
 		assertEquals(result, false);
@@ -158,10 +215,10 @@ public class UrlValidatorTest extends TestCase {
 		UrlValidator urlVal = new UrlValidator();
 
 		boolean result = (urlVal.isValid("gopher://spinaltap.micro.umn.edu/00/Weather/California/Los%20Angeles"));
-		if (result == false  && printAllTestCases) {
+		if (result == false && printAllTestCases) {
 			System.out.println("Test passed : testManualgopherDefaultSchemesAllowed");
 
-		} else  {
+		} else {
 			System.out.println("Test failed: testManualgopherDefaultSchemesAllowed");
 		}
 		assertEquals(result, false);
@@ -170,7 +227,7 @@ public class UrlValidatorTest extends TestCase {
 	public void testManualgopherDefaultSchemesMailto() {
 		UrlValidator urlVal = new UrlValidator();
 
-		boolean result = (urlVal.isValid("gopher://spinaltap.micro.umn.edu/00/Weather/California/Los%20Angeles"));
+		boolean result = !(urlVal.isValid("gopher://spinaltap.micro.umn.edu/00/Weather/California/Los%20Angeles"));
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualgopherDefaultSchemesMailto");
 
@@ -183,7 +240,7 @@ public class UrlValidatorTest extends TestCase {
 	public void testManualFakeSchemeDefaultSchemesMailto() {
 		UrlValidator urlVal = new UrlValidator();
 
-		boolean result = (urlVal.isValid("BooBooKittyScheme:booBoo@kitty.cat.meow"));
+		boolean result = !(urlVal.isValid("BooBooKittyScheme:booBoo@kitty.cat.meow"));
 		if (result && printAllTestCases) {
 			System.out.println("Test passed : testManualFakeSchemeDefaultSchemesMailto");
 
@@ -211,36 +268,43 @@ public class UrlValidatorTest extends TestCase {
 		boolean actual = urlVal.isValid("http://www.google.com");
 		assertTrue(actual);
 	}
+
 	public void testPartitionSchemeInvalidName() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("foo://www.google.com");
 		assertFalse(actual);
 	}
+
 	public void testPartitionSchemeInvalidChars() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("%$://www.google.com");
 		assertFalse(actual);
 	}
+
 	public void testPartitionSchemeInvalidSep() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http:/www.google.com");
 		assertFalse(actual);
 	}
+
 	public void testPartitionSchemeNoScheme() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("www.google.com");
 		assertTrue(actual);
 	}
+
 	public void testHostTypical() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.amazon.com");
 		assertTrue(actual);
 	}
+
 	public void testHostShort() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://a.tv");
 		assertTrue(actual);
 	}
+
 	public void testHostLong() {
 		UrlValidator urlVal = new UrlValidator();
 		String url = "http://a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.com";
@@ -248,96 +312,115 @@ public class UrlValidatorTest extends TestCase {
 		// Limit 255 chars for hostname
 		assertFalse(actual);
 	}
+
 	public void testHostIPValid() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://192.168.1.1");
 		assertTrue(actual);
 	}
+
 	public void testHostIPInvalid1() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://256.255.255.255");
 		assertFalse(actual);
 	}
+
 	public void testHostIPInvalid2() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://255.255.255");
 		assertFalse(actual);
 	}
+
 	public void testPortSmall() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:1");
 		assertTrue(actual);
 	}
+
 	public void testPortMax() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:65536");
 		assertTrue(actual);
 	}
+
 	public void testPortMin() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:0");
 		assertTrue(actual);
 	}
+
 	public void testPortOverMax() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:65536");
 		assertFalse(actual);
 	}
+
 	public void testPortUnderMin() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:-1");
 		assertFalse(actual);
 	}
+
 	public void testPortDecimal() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:2.5");
 		assertFalse(actual);
 	}
+
 	public void testPortLetter() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:A");
 		assertFalse(actual);
 	}
+
 	public void testPortJustColon() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:");
 		assertFalse(actual);
 	}
+
 	public void testPathSingle() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com/path");
 		assertTrue(actual);
 	}
+
 	public void testPathInvalidSep() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com//path");
 		assertFalse(actual);
 	}
+
 	public void testPathCompund() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com/path/to/file.txt");
 		assertTrue(actual);
 	}
+
 	public void testPathOutofOrder() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com/path/file.txt/to");
 		assertFalse(actual);
 	}
+
 	public void testPathNoPath() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com/");
 		assertTrue(actual);
 	}
+
 	public void testOrderingValid() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.google.com:80/path/to/file.txt");
 		assertTrue(actual);
 	}
+
 	public void testOrderingInValid() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("www.google.com:80/path/to/file.txt/http://");
 		assertFalse(actual);
 	}
+
 	public void testIsValid2() {
 		Boolean expectedResult, actualResult, allTestsPassed = true;
 
@@ -537,6 +620,9 @@ public class UrlValidatorTest extends TestCase {
 			urlLen = rand.nextInt(len) + 1; // 2082 is the longest valid url len, dont want alot of those, due to
 			if ((i == 30) || (i == 60)) {
 				urlLen = 2082;
+			}
+			if ((i == 99)) {
+				urlLen = 2100;
 			}
 			failTest = ((i % 4) == 0);
 			// memory, does the urlvalidator test len limit?
