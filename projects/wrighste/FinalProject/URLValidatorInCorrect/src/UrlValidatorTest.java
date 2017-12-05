@@ -399,6 +399,30 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(actual);
 	}
 
+	public void testManualIPTooLarge() {
+		UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+		boolean result = (urlVal.isValid("http://256.255.255.255"));
+		if (result) {
+			System.out.println("Test failed : testManualIPTooLarge");
+
+		} else if (printAllTestCases) {
+			System.out.println("Test passed : testManualIPTooLarge");
+		}
+		assertEquals(result, false);
+	}
+
+	public void testManualQueryString() {
+		UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+		boolean result = (urlVal.isValid("http://www.amazon.com/?action=view"));
+		if (result && printAllTestCases) {
+			System.out.println("Test passed : testManualQueryString");
+
+		} else {
+			System.out.println("Test failed : testManualQueryString");
+		}
+		assertEquals(result, false);
+	}
+
 	public void testPortDecimal() {
 		UrlValidator urlVal = new UrlValidator();
 		boolean actual = urlVal.isValid("http://www.gooogle.com:2.5");
@@ -641,6 +665,7 @@ public class UrlValidatorTest extends TestCase {
 		boolean invalidUrl = false;
 		boolean failTest;
 
+		
 		paths.put("www.google.com", true);
 		paths.put("test.com", true);
 		paths.put("test.tv", true);
@@ -685,6 +710,9 @@ public class UrlValidatorTest extends TestCase {
 				}
 
 			}
+			String[] TLDs = {".com", ".au", ".net", ".org", ".gov", ".hiphop", ".567", ".!"};
+			int randomNum = rand.nextInt(7);
+			item += TLDs[randomNum];
 			paths.put(item, !failTest);
 		}
 		return paths;
