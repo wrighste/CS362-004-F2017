@@ -420,7 +420,7 @@ public class UrlValidatorTest extends TestCase {
 		} else {
 			System.out.println("Test failed : testManualQueryString");
 		}
-		assertEquals(result, false);
+		assertEquals(result, true);
 	}
 
 	public void testPortDecimal() {
@@ -665,7 +665,6 @@ public class UrlValidatorTest extends TestCase {
 		boolean invalidUrl = false;
 		boolean failTest;
 
-		
 		paths.put("www.google.com", true);
 		paths.put("test.com", true);
 		paths.put("test.tv", true);
@@ -710,7 +709,7 @@ public class UrlValidatorTest extends TestCase {
 				}
 
 			}
-			String[] TLDs = {".com", ".au", ".net", ".org", ".gov", ".hiphop", ".567", ".!"};
+			String[] TLDs = { ".com", ".au", ".net", ".org", ".gov", ".hiphop", ".567", ".!" };
 			int randomNum = rand.nextInt(7);
 			item += TLDs[randomNum];
 			paths.put(item, !failTest);
